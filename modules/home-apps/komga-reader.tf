@@ -1,3 +1,8 @@
+variable "komga_image_version" {
+  description = "Komga Ebooks & Comic Reader Version"
+  default     = "latest"
+}
+
 locals {
   komga_app_name = "komga-reader"
   komga_port     = 25600
