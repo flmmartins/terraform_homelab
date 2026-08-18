@@ -25,6 +25,63 @@ resource "kubernetes_namespace_v1" "plex" {
   }
 }
 
+# Moved config to local node due to DB busy issues on NFS
+resource "kubernetes_persistent_volume_v1" "plex_config" {
+  metadata {
+    name = "${local.plex_app_name}-local-config"
+    labels = merge(local.plex_common_labels, {
+      component = "config"
+    })
+  }
+
+  spec {
+    capacity = {
+      storage = var.plex_config_size
+    }
+
+    access_modes                     = ["ReadWriteOnce"]
+    storage_class_name               = var.plex_config_storage_class
+    persistent_volume_reclaim_policy = "Retain"
+
+    persistent_volume_source {
+      local {
+        path = var.plex_config_path
+      }
+    }
+
+    node_affinity {
+      required {
+        node_selector_term {
+          match_expressions {
+            key      = "kubernetes.io/hostname"
+            operator = "In"
+            values   = [var.plex_node]
+          }
+        }
+      }
+    }
+  }
+}
+
+
+resource "kubernetes_persistent_volume_claim_v1" "plex_config" {
+  metadata {
+    name      = "${local.plex_app_name}-local-config"
+    namespace = kubernetes_namespace_v1.plex[0].metadata[0].name
+  }
+
+  spec {
+    access_modes       = ["ReadWriteOnce"]
+    storage_class_name = var.plex_config_storage_class
+    volume_name        = kubernetes_persistent_volume_v1.plex_config.metadata[0].name
+    resources {
+      requests = {
+        storage = var.plex_config_size
+      }
+    }
+  }
+}
+
 resource "kubernetes_persistent_volume_claim_v1" "plex" {
   for_each = local.plex_shares
 
@@ -61,8 +118,7 @@ resource "helm_release" "plex" {
     <<-EOF
     pms:
       # On first boot: https://www.plex.tv/claim/. Edit env var below - claim token is temp
-      storageClassName: ${var.persistent_storage_class}
-      configStorage: 5Gi
+      configExistingClaim: ${kubernetes_persistent_volume_claim_v1.plex_config.metadata[0].name}
       resources:
         requests:
           cpu: 300m

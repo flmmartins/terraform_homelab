@@ -18,6 +18,29 @@ variable "plex_ip" {
   type        = string
 }
 
+variable "plex_config_storage_class" {
+  type        = string
+  description = "Name of the storage class for plex config database - has to be local"
+}
+
+variable "plex_config_path" {
+  type        = string
+  description = "Path inside the local volume. It has to be pre-created"
+}
+
+variable "plex_config_size" {
+  type        = string
+  description = "Size of the local volume"
+  default     = "5Gi"
+}
+
+
+variable "plex_node" {
+  type        = string
+  description = "Plex node pinning due to local storage"
+}
+
+
 variable "plex_vault_token" {
   description = <<-EOT
     Vault configuration to read the Plex API token from, used by the plex-exporter

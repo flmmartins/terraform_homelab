@@ -132,6 +132,9 @@ module "home-apps" {
 
   plex_ip                   = var.istio_ip
   plex_gateway_tcp_listener = "plex-tcp"
+  plex_node                 = "talos-kube-worker-2"
+  plex_config_path          = "/var/mnt/plex-config"
+  plex_config_storage_class = "manual"
   plex_vault_token = {
     vault_address = var.vault_address_internal
     secret_path   = format("%s/plex", var.onepassword_vault_path)
