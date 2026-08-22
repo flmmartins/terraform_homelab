@@ -152,8 +152,6 @@ module "home-apps" {
     secret_path                  = format("%s/immich", var.onepassword_vault_path)
   }
 
-  bindery_enabled = true
-
   movies_nfs_share         = var.existing_nfs_share["movies"]
   music_nfs_share          = var.existing_nfs_share["music"]
   tvshows_nfs_share        = var.existing_nfs_share["tv-shows"]

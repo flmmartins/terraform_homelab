@@ -1,0 +1,68 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: calibre-library-import
+  namespace: calibre
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext:
+        runAsUser: <NFS_USER_ID>
+        runAsGroup: <NFS_USER_ID>
+        fsGroup: <NFS_GROUP_ID>
+      containers:
+        - name: calibre-library-import
+          image: docker.io/crocodilestick/calibre-web-automated:<VERSION>
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "3Gi"
+          # Each individual calibredb add subprocess to ~1.5GB of virtual memory.
+          command:
+            - bash
+            - -c
+            - |
+              echo "Starting import..."
+              touch /library/.cwa-import-failed.log
+              touch /library/.cwa-import-processed.log
+
+              find /source -type f \( -iname '*.epub' -o -iname '*.mobi' -o -iname '*.azw3' \
+                  -o -iname '*.azw' -o -iname '*.pdf' -o -iname '*.cbz' -o -iname '*.cbr' \
+                  -o -iname '*.cb7' \) -print0 |
+              while IFS= read -r -d '' f; do
+                if grep -qF "$f" /library/.cwa-import-processed.log; then
+                  continue
+                fi
+
+                echo "Processing: $f"
+                if ( ulimit -v 1500000; timeout 120 /app/calibre/calibredb add "$f" --with-library /library ) >>/tmp/import.log 2>&1; then
+                  echo "$f" >> /library/.cwa-import-processed.log
+                else
+                  echo "$f" >> /library/.cwa-import-failed.log
+                  echo "$f" >> /library/.cwa-import-processed.log
+                fi
+              done
+
+              echo "Import complete. Book count:"
+              /app/calibre/calibredb list --with-library /library | wc -l
+              echo "Failed files: $(wc -l < /library/.cwa-import-failed.log)"
+          volumeMounts:
+            - name: source
+              mountPath: /source
+              readOnly: true
+            - name: library
+              mountPath: /library
+      volumes:
+        - name: source
+          nfs:
+            server: <YOUR_NFS_SERVER_IP>
+            path: <NFS_PATH>
+            readOnly: true
+        - name: library
+          persistentVolumeClaim:
+            claimName: calibre-library
