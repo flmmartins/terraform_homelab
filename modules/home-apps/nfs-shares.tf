@@ -108,3 +108,32 @@ resource "kubernetes_persistent_volume_v1" "calibre_library" {
     }
   }
 }
+
+# Book converter
+resource "kubernetes_persistent_volume_v1" "calibre_ingest" {
+  count = var.ebooks_comics_nfs_share != null ? 1 : 0
+
+  metadata {
+    name = "${local.calibre_app_name}-ingest"
+  }
+
+  spec {
+    capacity = {
+      storage = "1Gi"
+    }
+    access_modes                     = [var.ebooks_comics_nfs_share.access_mode]
+    persistent_volume_reclaim_policy = "Retain"
+    storage_class_name               = kubernetes_storage_class_v1.manual.metadata[0].name
+
+    persistent_volume_source {
+      csi {
+        driver        = "nfs.csi.k8s.io"
+        volume_handle = "${local.calibre_app_name}-ingest"
+        volume_attributes = {
+          server = var.ebooks_comics_nfs_share.server
+          share  = "${var.ebooks_comics_nfs_share.path}/${local.calibre_app_name}/CONVERT"
+        }
+      }
+    }
+  }
+}

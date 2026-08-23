@@ -1,3 +1,13 @@
+# Volumes
+
+All folders in nfs-share have to be manually created. This is due to security because I didn't want CSI NFS to create folders in my data volumes to prevent risk of deletion.
+
+Volumes are:
+* personal-folders/*
+* personal-folders/photos/immich-config (because it has to live where photos are)
+* personal-folders/books/calibre (because it has to leave where ebooks are)
+* personal-folders/books/calibre/CONVERT (to convert ebooks)
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -21,10 +31,12 @@ No modules.
 |------|------|
 | [helm_release.immich](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.plex](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [kubernetes_config_map_v1.calibre_plugins](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map_v1) | resource |
 | [kubernetes_config_map_v1.immich_grafana_dashboard](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map_v1) | resource |
 | [kubernetes_config_map_v1.plex_grafana_dashboard](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map_v1) | resource |
 | [kubernetes_cron_job_v1.immich_album_creator](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/cron_job_v1) | resource |
 | [kubernetes_deployment_v1.calibre](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment_v1) | resource |
+| [kubernetes_manifest.calibre](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [kubernetes_manifest.httproute_calibre](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [kubernetes_manifest.httproute_immich](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [kubernetes_manifest.plex_podmonitor](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
@@ -34,20 +46,25 @@ No modules.
 | [kubernetes_namespace_v1.immich](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace_v1) | resource |
 | [kubernetes_namespace_v1.plex](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace_v1) | resource |
 | [kubernetes_persistent_volume_claim_v1.calibre_config](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
+| [kubernetes_persistent_volume_claim_v1.calibre_ingest](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
 | [kubernetes_persistent_volume_claim_v1.calibre_library](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
 | [kubernetes_persistent_volume_claim_v1.immich_config](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
 | [kubernetes_persistent_volume_claim_v1.immich_data](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
 | [kubernetes_persistent_volume_claim_v1.plex](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
 | [kubernetes_persistent_volume_claim_v1.plex_config](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
+| [kubernetes_persistent_volume_v1.calibre_ingest](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
 | [kubernetes_persistent_volume_v1.calibre_library](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
 | [kubernetes_persistent_volume_v1.data_volumes](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
 | [kubernetes_persistent_volume_v1.immich_config](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
 | [kubernetes_persistent_volume_v1.plex_config](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
 | [kubernetes_secret_v1.vault_ca](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) | resource |
+| [kubernetes_service_account_v1.calibre](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account_v1) | resource |
 | [kubernetes_service_v1.calibre](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_v1) | resource |
 | [kubernetes_storage_class_v1.manual](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/storage_class_v1) | resource |
+| [vault_kubernetes_auth_backend_role.calibre](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/kubernetes_auth_backend_role) | resource |
 | [vault_kubernetes_auth_backend_role.immich](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/kubernetes_auth_backend_role) | resource |
 | [vault_kubernetes_auth_backend_role.plex](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/kubernetes_auth_backend_role) | resource |
+| [vault_policy.calibre](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/policy) | resource |
 | [vault_policy.immich](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/policy) | resource |
 | [vault_policy.plex](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/policy) | resource |
 | [kubernetes_config_map_v1.vault_ca](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/config_map_v1) | data source |
@@ -57,7 +74,8 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_calibre_enabled"></a> [calibre\_enabled](#input\_calibre\_enabled) | Whether to deploy Calibre-Web-Automated | `bool` | `true` | no |
-| <a name="input_cwa_image_tag"></a> [cwa\_image\_tag](#input\_cwa\_image\_tag) | Calibre-Web-Automated image tag. Check https://github.com/crocodilestick/Calibre-Web-Automated/releases for latest | `string` | `"v4.0.6"` | no |
+| <a name="input_calibre_image_tag"></a> [calibre\_image\_tag](#input\_calibre\_image\_tag) | Calibre-Web-Automated image tag. Check https://github.com/crocodilestick/Calibre-Web-Automated/releases for latest | `string` | `"v4.0.6"` | no |
+| <a name="input_calibre_vault_password"></a> [calibre\_vault\_password](#input\_calibre\_vault\_password) | Vault configuration to read the DeDRM plugin's key file (dedrm.json) from.<br/>If not provided, DeDRM will remain unconfigured (no keys) and DRM'd books will fail to convert.<br/><br/>Example:<br/>calibre\_vault\_password = {<br/>  secret\_path         = "secret/calibre-dedrm"<br/>  vault\_address       = "https://vault.internal:8200"<br/>  json\_field          = "dedrm\_json"<br/>  activation\_field    = "activation\_xml"<br/>  device\_field        = "device\_xml"<br/>  device\_salt\_field   = "devicesalt"<br/>} | <pre>object({<br/>    secret_path            = optional(string)<br/>    vault_address          = optional(string)<br/>    vault_csi_ca_cert_path = optional(string, "/vault/tls/ca.crt")<br/>    json_field             = optional(string, "dedrm_json")<br/>    activation_field       = optional(string, "activation_xml")<br/>    device_field           = optional(string, "device_xml")<br/>    device_salt_field      = optional(string, "devicesalt")<br/>  })</pre> | `null` | no |
 | <a name="input_domain"></a> [domain](#input\_domain) | Domain to use on apps | `string` | n/a | yes |
 | <a name="input_ebooks_comics_nfs_share"></a> [ebooks\_comics\_nfs\_share](#input\_ebooks\_comics\_nfs\_share) | NFS share to use for ebooks and comics storage | <pre>object({<br/>    size        = string<br/>    user_id     = number<br/>    group_id    = number<br/>    access_mode = string<br/>    path        = string<br/>    server      = string<br/>  })</pre> | `null` | no |
 | <a name="input_emulatorsrooms_nfs_share"></a> [emulatorsrooms\_nfs\_share](#input\_emulatorsrooms\_nfs\_share) | NFS share to use for old games emulators storage | <pre>object({<br/>    size        = string<br/>    user_id     = number<br/>    group_id    = number<br/>    access_mode = string<br/>    path        = string<br/>    server      = string<br/>  })</pre> | `null` | no |
