@@ -15,6 +15,36 @@ resource "kubernetes_namespace_v1" "immich" {
   }
 }
 
+resource "kubernetes_persistent_volume_v1" "immich_data" {
+  count = var.photos_nfs_share != null ? 1 : 0
+
+  metadata {
+    name = "photos"
+  }
+
+  spec {
+    capacity = {
+      storage = var.photos_nfs_share.size
+    }
+
+    access_modes = [var.photos_nfs_share.access_mode]
+
+    persistent_volume_reclaim_policy = "Retain"
+    storage_class_name               = kubernetes_storage_class_v1.manual.metadata[0].name
+
+    persistent_volume_source {
+      csi {
+        driver        = "nfs.csi.k8s.io"
+        volume_handle = "photos"
+        volume_attributes = {
+          server = var.photos_nfs_share.server
+          share  = var.photos_nfs_share.path
+        }
+      }
+    }
+  }
+}
+
 resource "kubernetes_persistent_volume_claim_v1" "immich_data" {
   count = var.photos_nfs_share != null ? 1 : 0
   metadata {
@@ -32,8 +62,32 @@ resource "kubernetes_persistent_volume_claim_v1" "immich_data" {
         storage = var.photos_nfs_share.size
       }
     }
-    volume_name        = kubernetes_persistent_volume_v1.data_volumes["photos"].metadata[0].name
+    volume_name        = kubernetes_persistent_volume_v1.immich_data[0].metadata[0].name
     storage_class_name = kubernetes_storage_class_v1.manual.metadata[0].name
+  }
+}
+
+# Immich config inside photos share - pre-creation of folder is necessary
+resource "kubernetes_persistent_volume_v1" "immich_config" {
+  count = var.photos_nfs_share != null ? 1 : 0
+  metadata {
+    name = "immich-config"
+  }
+  spec {
+    capacity                         = { storage = "50Gi" }
+    access_modes                     = [var.photos_nfs_share.access_mode]
+    persistent_volume_reclaim_policy = "Retain"
+    storage_class_name               = kubernetes_storage_class_v1.manual.metadata[0].name
+    persistent_volume_source {
+      csi {
+        driver        = "nfs.csi.k8s.io"
+        volume_handle = "immich-config"
+        volume_attributes = {
+          server = var.photos_nfs_share.server
+          share  = format("%s/immich-config", var.photos_nfs_share.path)
+        }
+      }
+    }
   }
 }
 

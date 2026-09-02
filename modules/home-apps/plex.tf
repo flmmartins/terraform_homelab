@@ -6,9 +6,9 @@ locals {
   }
   plex_shares = {
     for k, v in {
-      movies   = var.movies_nfs_share
-      music    = var.music_nfs_share
-      tv-shows = var.tvshows_nfs_share
+      plex-movies   = var.movies_nfs_share
+      plex-music    = var.music_nfs_share
+      plex-tv-shows = var.tvshows_nfs_share
     } : k => v
     if v != null
   }
@@ -63,7 +63,6 @@ resource "kubernetes_persistent_volume_v1" "plex_config" {
   }
 }
 
-
 resource "kubernetes_persistent_volume_claim_v1" "plex_config" {
   metadata {
     name      = "${local.plex_app_name}-local-config"
@@ -82,11 +81,40 @@ resource "kubernetes_persistent_volume_claim_v1" "plex_config" {
   }
 }
 
-resource "kubernetes_persistent_volume_claim_v1" "plex" {
+resource "kubernetes_persistent_volume_v1" "plex_data" {
+  for_each = local.plex_shares
+  metadata {
+    name = each.key
+  }
+
+  spec {
+    capacity = {
+      storage = each.value.size
+    }
+
+    access_modes = [each.value.access_mode]
+
+    persistent_volume_reclaim_policy = "Retain"
+    storage_class_name               = kubernetes_storage_class_v1.manual.metadata[0].name
+
+    persistent_volume_source {
+      csi {
+        driver        = "nfs.csi.k8s.io"
+        volume_handle = each.key
+        volume_attributes = {
+          server = each.value.server
+          share  = each.value.path
+        }
+      }
+    }
+  }
+}
+
+resource "kubernetes_persistent_volume_claim_v1" "plex_data" {
   for_each = local.plex_shares
 
   metadata {
-    name      = "${local.plex_app_name}-${each.key}"
+    name      = each.key
     namespace = kubernetes_namespace_v1.plex[0].metadata[0].name
     labels = merge(local.plex_common_labels, {
       component = "data"
@@ -100,7 +128,7 @@ resource "kubernetes_persistent_volume_claim_v1" "plex" {
         storage = each.value.size
       }
     }
-    volume_name        = kubernetes_persistent_volume_v1.data_volumes[each.key].metadata[0].name
+    volume_name        = kubernetes_persistent_volume_v1.plex_data[each.key].metadata[0].name
     storage_class_name = kubernetes_storage_class_v1.manual.metadata[0].name
   }
 }
@@ -137,7 +165,7 @@ resource "helm_release" "plex" {
     %{~for name, _ in local.plex_shares~}
     - name: ${name}
       persistentVolumeClaim:
-        claimName: ${kubernetes_persistent_volume_claim_v1.plex[name].metadata[0].name}
+        claimName: ${kubernetes_persistent_volume_claim_v1.plex_data[name].metadata[0].name}
     %{~endfor~}
     %{~if var.plex_vault_token != null && var.enable_metrics~} 
     - name: csi-secret-driver-for-plex-token
@@ -150,7 +178,7 @@ resource "helm_release" "plex" {
     extraVolumeMounts:
     %{~for name, _ in local.plex_shares~}
     - name: ${name}
-      mountPath: /${name}
+      mountPath: /${trimprefix(name, "plex-")}
     %{~endfor~}
     %{~if var.plex_vault_token != null && var.enable_metrics~} 
     - name: csi-secret-driver-for-plex-token
