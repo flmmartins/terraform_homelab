@@ -139,7 +139,6 @@ module "home-apps" {
     vault_address = var.vault_address_internal
     secret_path   = format("%s/plex", var.onepassword_vault_path)
   }
-
   immich_database = {
     server                  = module.main-pg-cluster.rw_svc
     database_name           = "immich"

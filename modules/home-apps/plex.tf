@@ -151,7 +151,6 @@ resource "helm_release" "plex" {
     %{~for name, _ in local.plex_shares~}
     - name: ${name}
       mountPath: /${name}
-      readOnly: true
     %{~endfor~}
     %{~if var.plex_vault_token != null && var.enable_metrics~} 
     - name: csi-secret-driver-for-plex-token

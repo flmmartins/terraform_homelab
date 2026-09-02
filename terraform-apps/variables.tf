@@ -54,7 +54,7 @@ variable "existing_nfs_share" {
     size        = optional(string, "50Gi")
     user_id     = number
     group_id    = number
-    access_mode = optional(string, "ReadOnlyMany")
+    access_mode = optional(string, "ReadWriteMany")
     server      = string
     path        = string
   }))
