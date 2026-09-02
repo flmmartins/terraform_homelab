@@ -150,6 +150,10 @@ module "home-apps" {
     vault_ca_configmap_namespace = var.vault_ca_configmap.namespace
     secret_path                  = format("%s/immich", var.onepassword_vault_path)
   }
+  calibre_vault_password = {
+    vault_address = var.vault_address_internal
+    secret_path   = format("%s/calibre", var.onepassword_vault_path)
+  }
 
   movies_nfs_share         = var.existing_nfs_share["movies"]
   music_nfs_share          = var.existing_nfs_share["music"]
