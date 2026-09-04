@@ -1,11 +1,11 @@
 variable "plex_chart_version" {
-  description = "Plex Version"
-  default     = "1.6.0"
+  description = "Plex Chart Version from https://github.com/plexinc/pms-docker/releases/tag"
+  default     = "1.7.1"
 }
 
 variable "plex_exporter_version" {
-  description = "Plex Version"
-  default     = "v2.2.11"
+  description = "Plex Metrics Exporter Version from https://hub.docker.com/r/cplieger/plex-exporter/tags"
+  default     = "v3"
 }
 
 variable "plex_gateway_tcp_listener" {

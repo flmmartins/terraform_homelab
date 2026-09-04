@@ -199,7 +199,7 @@ resource "helm_release" "plex" {
           drop:
             - ALL
       env:
-      - name: PLEX_SERVER
+      - name: PLEX_URL
         value: "http://localhost:32400"
       - name: PLEX_TOKEN
         valueFrom:

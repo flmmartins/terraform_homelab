@@ -50,13 +50,14 @@ No modules.
 | [kubernetes_persistent_volume_claim_v1.calibre_library](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
 | [kubernetes_persistent_volume_claim_v1.immich_config](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
 | [kubernetes_persistent_volume_claim_v1.immich_data](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
-| [kubernetes_persistent_volume_claim_v1.plex](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
 | [kubernetes_persistent_volume_claim_v1.plex_config](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
+| [kubernetes_persistent_volume_claim_v1.plex_data](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_claim_v1) | resource |
 | [kubernetes_persistent_volume_v1.calibre_ingest](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
 | [kubernetes_persistent_volume_v1.calibre_library](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
-| [kubernetes_persistent_volume_v1.data_volumes](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
 | [kubernetes_persistent_volume_v1.immich_config](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
+| [kubernetes_persistent_volume_v1.immich_data](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
 | [kubernetes_persistent_volume_v1.plex_config](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
+| [kubernetes_persistent_volume_v1.plex_data](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1) | resource |
 | [kubernetes_secret_v1.vault_ca](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) | resource |
 | [kubernetes_service_account_v1.calibre](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account_v1) | resource |
 | [kubernetes_service_v1.calibre](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_v1) | resource |
@@ -90,11 +91,11 @@ No modules.
 | <a name="input_music_nfs_share"></a> [music\_nfs\_share](#input\_music\_nfs\_share) | NFS share to use for music storage | <pre>object({<br/>    size        = string<br/>    user_id     = number<br/>    group_id    = number<br/>    access_mode = string<br/>    path        = string<br/>    server      = string<br/>  })</pre> | `null` | no |
 | <a name="input_persistent_storage_class"></a> [persistent\_storage\_class](#input\_persistent\_storage\_class) | Name of the storage class which persist data | `string` | n/a | yes |
 | <a name="input_photos_nfs_share"></a> [photos\_nfs\_share](#input\_photos\_nfs\_share) | NFS share to use for photos storage | <pre>object({<br/>    size        = string<br/>    user_id     = number<br/>    group_id    = number<br/>    access_mode = string<br/>    path        = string<br/>    server      = string<br/>  })</pre> | `null` | no |
-| <a name="input_plex_chart_version"></a> [plex\_chart\_version](#input\_plex\_chart\_version) | Plex Version | `string` | `"1.6.0"` | no |
+| <a name="input_plex_chart_version"></a> [plex\_chart\_version](#input\_plex\_chart\_version) | Plex Chart Version from https://github.com/plexinc/pms-docker/releases/tag | `string` | `"1.7.1"` | no |
 | <a name="input_plex_config_path"></a> [plex\_config\_path](#input\_plex\_config\_path) | Path inside the local volume. It has to be pre-created | `string` | n/a | yes |
 | <a name="input_plex_config_size"></a> [plex\_config\_size](#input\_plex\_config\_size) | Size of the local volume | `string` | `"5Gi"` | no |
 | <a name="input_plex_config_storage_class"></a> [plex\_config\_storage\_class](#input\_plex\_config\_storage\_class) | Name of the storage class for plex config database - has to be local | `string` | n/a | yes |
-| <a name="input_plex_exporter_version"></a> [plex\_exporter\_version](#input\_plex\_exporter\_version) | Plex Version | `string` | `"v2.2.11"` | no |
+| <a name="input_plex_exporter_version"></a> [plex\_exporter\_version](#input\_plex\_exporter\_version) | Plex Metrics Exporter Version from https://hub.docker.com/r/cplieger/plex-exporter/tags | `string` | `"v3"` | no |
 | <a name="input_plex_gateway_tcp_listener"></a> [plex\_gateway\_tcp\_listener](#input\_plex\_gateway\_tcp\_listener) | Name of the listener that will be used by plex to connect via IP | `string` | n/a | yes |
 | <a name="input_plex_ip"></a> [plex\_ip](#input\_plex\_ip) | Plex needs load balancer IP to ADVERTISE\_IP configuration. This can be a load balancer IP. | `string` | n/a | yes |
 | <a name="input_plex_node"></a> [plex\_node](#input\_plex\_node) | Plex node pinning due to local storage | `string` | n/a | yes |
