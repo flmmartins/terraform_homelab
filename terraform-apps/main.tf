@@ -2,7 +2,23 @@ locals {
   seaweedfs_s3api_url = "s3api.${var.public_domain}"
   seaweedfs_admin_url = "seaweedfs.${var.public_domain}"
   grafana_url         = "grafana.${var.public_domain}"
+  argocd_url          = "argocd.${var.public_domain}"
 }
+
+module "argocd" {
+  source = "../modules/argocd"
+
+  enable_https_backend = true
+
+  certificate_issuer = {
+    name                   = var.vault_pki_issuer
+    ca_configmap           = var.vault_ca_configmap.name
+    ca_configmap_namespace = var.vault_ca_configmap.namespace
+  }
+  gateway = var.gateway
+  url     = local.argocd_url
+}
+
 
 module "seaweedfs" {
   source = "../modules/seaweedfs"
