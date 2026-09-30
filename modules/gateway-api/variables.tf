@@ -15,12 +15,12 @@ variable "enable_metrics" {
 # -----------------------------------------------------------------------------
 variable "istio_chart_version" {
   description = "Istio Chart Version"
-  default     = "1.30.2"
+  default     = "1.31.1"
 }
 
 variable "gateway_crds_version" {
   description = "Gateway API CRDs Version"
-  default     = "v1.6.0"
+  default     = "v1.6.2"
 }
 
 variable "istio_ip" {

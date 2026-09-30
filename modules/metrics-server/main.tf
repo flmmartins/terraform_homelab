@@ -1,6 +1,6 @@
 variable "chart_version" {
   description = "Metric Server Chart Version"
-  default     = "3.13.0"
+  default     = "3.14.0"
 }
 
 resource "helm_release" "this" {

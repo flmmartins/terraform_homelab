@@ -18,7 +18,7 @@ resource "kubernetes_namespace_v1" "istio" {
 resource "helm_release" "istio-base" {
   name        = "istio-base"
   namespace   = kubernetes_namespace_v1.istio.metadata[0].name
-  repository  = "https://istio-release.storage.googleapis.com/charts"
+  repository  = "https://blob.istio.io/istio-release/charts"
   version     = var.istio_chart_version
   chart       = "base"
   max_history = 10
@@ -28,7 +28,7 @@ resource "helm_release" "istiod" {
   depends_on  = [helm_release.istio-base]
   name        = "istiod"
   namespace   = kubernetes_namespace_v1.istio.metadata[0].name
-  repository  = "https://istio-release.storage.googleapis.com/charts"
+  repository  = "https://blob.istio.io/istio-release/charts"
   version     = var.istio_chart_version
   chart       = "istiod"
   max_history = 10

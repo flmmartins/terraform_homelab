@@ -1,6 +1,6 @@
 variable "chart_version" {
   description = "Kubelet Cert Approver Chart Version"
-  default     = "v0.11.0"
+  default     = "v0.12.1"
 }
 
 data "http" "this" {

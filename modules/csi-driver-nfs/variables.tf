@@ -1,6 +1,6 @@
 variable "chart_version" {
   description = "CSI Driver NFS Chart Version"
-  default     = "4.12.1"
+  default     = "4.13.4"
 }
 
 variable "labels" {

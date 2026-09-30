@@ -1,7 +1,7 @@
 variable "chart_version" {
   type        = string
-  description = "Prometheus Stack Chart Version"
-  default     = "1.6.0"
+  description = "Chart Version"
+  default     = "1.6.1"
 }
 
 variable "priority_class" {

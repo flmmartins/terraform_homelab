@@ -26,7 +26,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | CSI Driver NFS Chart Version | `string` | `"4.12.1"` | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | CSI Driver NFS Chart Version | `string` | `"4.13.4"` | no |
 | <a name="input_controller_csi_provisioner_limits_cpu"></a> [controller\_csi\_provisioner\_limits\_cpu](#input\_controller\_csi\_provisioner\_limits\_cpu) | CPU limit for the controller csiProvisioner container (e.g. '100m', '1'). | `string` | `"100m"` | no |
 | <a name="input_controller_csi_provisioner_limits_memory"></a> [controller\_csi\_provisioner\_limits\_memory](#input\_controller\_csi\_provisioner\_limits\_memory) | Memory limit for the controller csiProvisioner container (e.g. '128Mi', '1Gi'). | `string` | `"128Mi"` | no |
 | <a name="input_controller_csi_provisioner_requests_cpu"></a> [controller\_csi\_provisioner\_requests\_cpu](#input\_controller\_csi\_provisioner\_requests\_cpu) | CPU request for the controller csiProvisioner container (e.g. '25m', '1'). | `string` | `"25m"` | no |
