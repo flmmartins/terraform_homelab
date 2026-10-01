@@ -63,6 +63,7 @@ resource "kubernetes_secret_v1" "s3_credentials_placeholder" {
 }
 
 resource "kubernetes_manifest" "s3_credentials" {
+  depends_on = [kubernetes_secret_v1.s3_credentials_placeholder]
   manifest = {
     apiVersion = var.provider_api
     kind       = "S3Credentials"

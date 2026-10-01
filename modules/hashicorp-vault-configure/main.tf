@@ -106,7 +106,7 @@ resource "vault_mount" "pki" {
   path                  = var.pki.path
   type                  = "pki"
   description           = "Tamriel Tower Apps CA"
-  max_lease_ttl_seconds = 31536000 # 1 years
+  max_lease_ttl_seconds = var.pki_max_lease_ttl_seconds
 }
 
 resource "vault_pki_secret_backend_config_ca" "pki" {
@@ -160,4 +160,33 @@ path "${vault_mount.pki[0].path}/sign/${vault_pki_secret_backend_role.pki[0].nam
 path "${vault_mount.pki[0].path}/issue/${vault_pki_secret_backend_role.pki[0].name}" {
   capabilities = ["create"] }
 EOT
+}
+
+resource "vault_pki_secret_backend_config_auto_tidy" "pki" {
+  count = var.pki != null ? 1 : 0
+
+  backend = vault_mount.pki[0].path
+
+  enabled           = true
+  interval_duration = "24h"
+
+  # Deletes leafs
+  tidy_cert_store    = true
+  tidy_revoked_certs = true
+  safety_buffer      = var.auto_tidy_buffer
+
+  # Delete expired CA - not only leafs
+  tidy_expired_issuers = true
+  issuer_safety_buffer = var.auto_tidy_buffer
+
+  # cleans up revoked-cert entries that point at issuers that no longer exist.
+  tidy_revoked_cert_issuer_associations = true
+
+  # Makes Vault keep a running count of the certificates in the mount's storage. 
+  # It counts on startup which can impact startup times of vault if storage is large
+  # The numbers show up in tidy status
+  maintain_stored_certificate_counts = true
+
+  # Sends those counts to Vault's telemetry as gauges. Only possible with telemetry enabled
+  publish_stored_certificate_count_metrics = true
 }

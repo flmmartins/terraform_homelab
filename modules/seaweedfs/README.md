@@ -78,8 +78,8 @@ No modules.
 | <a name="input_master_memory_limit"></a> [master\_memory\_limit](#input\_master\_memory\_limit) | Memory limit for SeaweedFS master pods | `string` | `"128Mi"` | no |
 | <a name="input_master_memory_request"></a> [master\_memory\_request](#input\_master\_memory\_request) | Memory request for SeaweedFS master pods | `string` | `"64Mi"` | no |
 | <a name="input_operator_chart_version"></a> [operator\_chart\_version](#input\_operator\_chart\_version) | Seaweedfs Chart Operator Version | `string` | `"0.1.37"` | no |
-| <a name="input_operator_cpu_limit"></a> [operator\_cpu\_limit](#input\_operator\_cpu\_limit) | CPU limit for the SeaweedFS operator controller manager | `string` | `"100m"` | no |
-| <a name="input_operator_cpu_request"></a> [operator\_cpu\_request](#input\_operator\_cpu\_request) | CPU request for the SeaweedFS operator controller manager | `string` | `"50m"` | no |
+| <a name="input_operator_cpu_limit"></a> [operator\_cpu\_limit](#input\_operator\_cpu\_limit) | CPU limit for the SeaweedFS operator controller manager | `string` | `"200m"` | no |
+| <a name="input_operator_cpu_request"></a> [operator\_cpu\_request](#input\_operator\_cpu\_request) | CPU request for the SeaweedFS operator controller manager | `string` | `"100m"` | no |
 | <a name="input_operator_memory_limit"></a> [operator\_memory\_limit](#input\_operator\_memory\_limit) | Memory limit for the SeaweedFS operator controller manager | `string` | `"128Mi"` | no |
 | <a name="input_operator_memory_request"></a> [operator\_memory\_request](#input\_operator\_memory\_request) | Memory request for the SeaweedFS operator controller manager | `string` | `"64Mi"` | no |
 | <a name="input_persistent_storage_class_name"></a> [persistent\_storage\_class\_name](#input\_persistent\_storage\_class\_name) | Storage class name for PVC | `string` | n/a | yes |

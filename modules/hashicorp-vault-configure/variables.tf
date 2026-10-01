@@ -45,3 +45,15 @@ EOT
   })
   default = null
 }
+
+variable "pki_max_lease_ttl_seconds" {
+  type        = number
+  description = "Maximum TTL for certificates issued by the PKI backend. Default is 1 year"
+  default     = 31536000
+}
+
+variable "auto_tidy_buffer" {
+  type        = string
+  description = "Time after expiration when certificate should be cleaned in hours. Defaults to 1 year"
+  default     = "8760h"
+}

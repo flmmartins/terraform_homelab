@@ -42,6 +42,24 @@ module "seaweedfs" {
   certificate_issuer            = var.vault_pki_issuer
 }
 
+module "vault_backup" {
+  source = "../modules/hashicorp-vault-backup"
+
+  create_backup_from_seaweedfs = {
+    cluster_name = module.seaweedfs.cluster_name
+    namespace    = module.seaweedfs.namespace
+  }
+
+  backup = {
+    s3_endpoint = module.seaweedfs.s3_kubernetes_svc
+    schedule    = "0 0 21 * *"
+  }
+
+  vault_ca_secret_name     = "vault-ha-tls"
+  enable_prometheus_alerts = true
+}
+
+
 module "velero" {
   source = "../modules/velero"
 

@@ -262,7 +262,7 @@ variable "admin_memory_limit" {
 variable "operator_cpu_request" {
   description = "CPU request for the SeaweedFS operator controller manager"
   type        = string
-  default     = "50m"
+  default     = "100m"
 }
 
 variable "operator_memory_request" {
@@ -274,7 +274,7 @@ variable "operator_memory_request" {
 variable "operator_cpu_limit" {
   description = "CPU limit for the SeaweedFS operator controller manager"
   type        = string
-  default     = "100m"
+  default     = "200m"
 }
 
 variable "operator_memory_limit" {

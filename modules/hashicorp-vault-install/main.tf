@@ -62,7 +62,13 @@ resource "kubernetes_manifest" "certmanager_vault_tls" {
         "*.vault-internal.${kubernetes_namespace_v1.this.metadata[0].name}.svc",
         "vault-internal.${kubernetes_namespace_v1.this.metadata[0].name}.svc.cluster.local",
         "*.vault-internal.${kubernetes_namespace_v1.this.metadata[0].name}.svc.cluster.local",
-        "*.vault-internal"
+        "*.vault-internal",
+        # Required by vault backup
+        # When you connect via HTTP to vaul svc you can hit a standby node and it will fwd you to leader and proxy for you
+        # When you do backup since payload is bigger standby cannot handle and will redirect you so SNI changes to pod IP so you use vault-active svc which will go to leader always
+        "vault-active.${kubernetes_namespace_v1.this.metadata[0].name}",
+        "vault-active.${kubernetes_namespace_v1.this.metadata[0].name}.svc",
+        "vault-active.${kubernetes_namespace_v1.this.metadata[0].name}.svc.cluster.local",
       ],
 
       ipAddresses = ["127.0.0.1"]
