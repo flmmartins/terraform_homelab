@@ -12,7 +12,7 @@ variable "backup" {
   type = object({
     s3_endpoint = string
     s3_bucket   = optional(string)
-    schedule    = optional(string, "0 0 21 * * *")
+    schedule    = optional(string, "0 21 * * *")
   })
 }
 

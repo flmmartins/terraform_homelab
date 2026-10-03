@@ -52,7 +52,7 @@ module "vault_backup" {
 
   backup = {
     s3_endpoint = module.seaweedfs.s3_kubernetes_svc
-    schedule    = "0 0 21 * *"
+    schedule    = "0 21 * * *"
   }
 
   vault_ca_secret_name     = "vault-ha-tls"
