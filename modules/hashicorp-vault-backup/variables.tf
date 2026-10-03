@@ -7,7 +7,6 @@ variable "backup" {
       s3_endpoint  = "http://...:8333"
       s3_bucket    = "A BUCKET - If created with seaweed there's  no need to define"
       schedule     = "0 0 0 * * *". This expression expects 6 digits.
-      retention_policy = "30d"
   EOT
   type = object({
     s3_endpoint = string
@@ -19,8 +18,9 @@ variable "backup" {
 variable "create_backup_from_seaweedfs" {
   description = "Name of seaweedfs cluster and namespace. If provided, bucket and credentials will be created"
   type = object({
-    cluster_name = string
-    namespace    = string
+    cluster_name   = string
+    namespace      = string
+    retention_days = optional(number, 30)
   })
   default = null
 }

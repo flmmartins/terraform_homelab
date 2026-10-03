@@ -36,12 +36,16 @@ resource "kubernetes_secret_v1" "this" {
 module "backup_storage" {
   count = var.create_backup_from_seaweedfs != null ? 1 : 0
 
-  source    = "../seadweed-s3-bucket"
-  seaweedfs = var.create_backup_from_seaweedfs
+  source = "../seadweed-s3-bucket"
+  seaweedfs = {
+    cluster_name = var.create_backup_from_seaweedfs.cluster_name
+    namespace    = var.create_backup_from_seaweedfs.namespace
+  }
   application = {
     name      = local.name
     namespace = var.vault_namespace
   }
+  retention_days   = var.create_backup_from_seaweedfs.retention_days
   access_key_field = "ACCESS_KEY_ID"
   secret_key_field = "ACCESS_SECRET_KEY"
 }

@@ -98,6 +98,16 @@ resource "kubernetes_manifest" "bucket" {
       clusterRef    = { name = var.seaweedfs.cluster_name }
       reclaimPolicy = "Retain" # Do not delete bucket when CRD is deleted
       owner         = kubernetes_manifest.s3_identity.manifest.metadata.name
+      versioning    = var.versioning
+      objectLock    = var.object_lock
+      # null values are dropped, so a bucket without retention gets no placement block
+      placement = var.retention_days != null ? {
+        ttl = "${var.retention_days}d"
+        # Had to specify the below bc tf kube manifest require the whole body spec otw you get a provider error
+        worm     = false
+        readOnly = false
+        fsync    = false
+      } : null
     }
   }
 }
