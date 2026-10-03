@@ -46,7 +46,7 @@ No requirements.
 | <a name="input_vault_ca_secret_key"></a> [vault\_ca\_secret\_key](#input\_vault\_ca\_secret\_key) | Key inside the Secret that contains the PEM encoded CA certificate | `string` | `"ca.crt"` | no |
 | <a name="input_vault_ca_secret_name"></a> [vault\_ca\_secret\_name](#input\_vault\_ca\_secret\_name) | Name of the Kubernetes Secret (in vault\_namespace) that holds the Vault CA certificate.<br/>It is mounted as a file and exposed to the Vault CLI through VAULT\_CACERT. | `string` | n/a | yes |
 | <a name="input_vault_namespace"></a> [vault\_namespace](#input\_vault\_namespace) | Name of the vault namespace where backup cronjob will be created | `string` | `"vault"` | no |
-| <a name="input_vault_version"></a> [vault\_version](#input\_vault\_version) | Name of the vault namespace where backup cronjob will be created | `string` | `"1.21.2"` | no |
+| <a name="input_vault_version"></a> [vault\_version](#input\_vault\_version) | Name of the vault namespace where backup cronjob will be created | `string` | `"2.0.4"` | no |
 
 ## Outputs
 

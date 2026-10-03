@@ -42,7 +42,7 @@ variable "vault_namespace" {
 
 variable "vault_version" {
   description = "Name of the vault namespace where backup cronjob will be created"
-  default     = "1.21.2"
+  default     = "2.0.4"
 }
 
 variable "aws_cli_version" {

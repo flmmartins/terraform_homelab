@@ -1,6 +1,6 @@
 variable "chart_version" {
   description = "Hashicorp Vault Chart Version"
-  default     = "0.32.0"
+  default     = "0.34.1"
 }
 
 variable "plugin_onepasswordconnect_version" {
