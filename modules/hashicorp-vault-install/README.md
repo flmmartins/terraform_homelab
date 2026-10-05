@@ -255,7 +255,6 @@ No modules.
 | [kubernetes_config_map_v1.vault_internal_ca](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map_v1) | resource |
 | [kubernetes_manifest.backendtlspolicy_vault](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [kubernetes_manifest.certmanager_vault_tls](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
-| [kubernetes_manifest.httproute_vault](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [kubernetes_namespace_v1.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace_v1) | resource |
 | [external_external.vault_ha_tls_ca](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
 | [external_external.vault_tls_secret_version](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
@@ -266,7 +265,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_certificate_issuer"></a> [certificate\_issuer](#input\_certificate\_issuer) | Cert Manager certificate issuer to issue the vault internal kubernetes certificate | `any` | `null` | no |
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Hashicorp Vault Chart Version | `string` | `"0.34.1"` | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Hashicorp Vault Chart Version. Versions can be found in https://github.com/hashicorp/vault-helm/releases | `string` | `"0.34.1"` | no |
 | <a name="input_csi_limits_cpu"></a> [csi\_limits\_cpu](#input\_csi\_limits\_cpu) | CPU limit for the csi container (e.g. '100m', '1'). | `string` | `"100m"` | no |
 | <a name="input_csi_limits_memory"></a> [csi\_limits\_memory](#input\_csi\_limits\_memory) | Memory limit for the csi container (e.g. '600Mi', '1Gi'). | `string` | `"500Mi"` | no |
 | <a name="input_csi_requests_cpu"></a> [csi\_requests\_cpu](#input\_csi\_requests\_cpu) | CPU request for the csi container (e.g. '50m', '1'). | `string` | `"50m"` | no |
@@ -279,7 +278,7 @@ No modules.
 | <a name="input_injector_requests_memory"></a> [injector\_requests\_memory](#input\_injector\_requests\_memory) | Memory request for the injector container (e.g. '80Mi', '1Gi'). | `string` | `"80Mi"` | no |
 | <a name="input_install_onepassword_plugin"></a> [install\_onepassword\_plugin](#input\_install\_onepassword\_plugin) | Wether to install one password plugin or not | `bool` | `false` | no |
 | <a name="input_persistent_storage_class_name"></a> [persistent\_storage\_class\_name](#input\_persistent\_storage\_class\_name) | Storage class name for vault | `string` | n/a | yes |
-| <a name="input_plugin_onepasswordconnect_version"></a> [plugin\_onepasswordconnect\_version](#input\_plugin\_onepasswordconnect\_version) | Version of 1password connect vault plugin | `string` | `"1.1.0"` | no |
+| <a name="input_plugin_onepasswordconnect_version"></a> [plugin\_onepasswordconnect\_version](#input\_plugin\_onepasswordconnect\_version) | Version of 1password connect vault plugin. Versions can be found in https://github.com/1Password/vault-plugin-secrets-onepassword/releases | `string` | `"1.1.0"` | no |
 | <a name="input_priority_class"></a> [priority\_class](#input\_priority\_class) | Describe the priority class vault should be in | `string` | `null` | no |
 | <a name="input_security_context"></a> [security\_context](#input\_security\_context) | Security context for the vault | <pre>object({<br/>    user_id  = optional(number)<br/>    group_id = optional(number)<br/>  })</pre> | `null` | no |
 | <a name="input_server_limits_cpu"></a> [server\_limits\_cpu](#input\_server\_limits\_cpu) | CPU limit for the server container (e.g. '256m', '1'). | `string` | `"512m"` | no |

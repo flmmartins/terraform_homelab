@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+    }
+  }
+}
+
 # Resources need to be created on seaweedfs namespace otherwise you need ref grants
 locals {
   secret_name = "seaweedfs-credential"

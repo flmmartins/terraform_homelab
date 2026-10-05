@@ -17,7 +17,7 @@ locals {
   vault_tls_secret     = "vault-ha-tls"
   plugin_folder        = "/usr/local/libexec/vault"
   csi_cert_mounth_path = "/vault/tls"
-  vault_service        = "vault-ui"
+  vault_service        = "vault-active"
 }
 
 resource "kubernetes_namespace_v1" "this" {
@@ -25,6 +25,8 @@ resource "kubernetes_namespace_v1" "this" {
     name = local.name
     labels = merge(local.labels, {
       "pod-security.kubernetes.io/enforce" = "privileged"
+      "pod-security.kubernetes.io/audit"   = "privileged"
+      "pod-security.kubernetes.io/warn"    = "privileged"
     })
   }
 }
@@ -340,6 +342,17 @@ resource "helm_release" "this" {
       readinessProbe:
         enabled: true
         failureThreshold: 6
+      %{~if var.gateway != null~}
+      httproute:
+        enabled: true
+        activeService: true
+        labels: ${jsonencode(merge(local.labels, { component = "httproute" }))}
+        hostnames:
+          - ${var.url}
+        parentRefs:
+          - name: ${var.gateway.name}
+            namespace: ${var.gateway.namespace}
+    %{~endif~}
     # Vault UI
     ui:
       enabled: true

@@ -26,7 +26,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Chart Version | `string` | `"1.6.1"` | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Chart Version. Versions can be found in https://github.com/kubernetes-sigs/secrets-store-csi-driver/releases/ | `string` | `"1.6.1"` | no |
 | <a name="input_csi_driver_limit_cpu"></a> [csi\_driver\_limit\_cpu](#input\_csi\_driver\_limit\_cpu) | CPU limit for the CSI driver container | `string` | `"150m"` | no |
 | <a name="input_csi_driver_limit_memory"></a> [csi\_driver\_limit\_memory](#input\_csi\_driver\_limit\_memory) | Memory limit for the CSI driver container | `string` | `"128Mi"` | no |
 | <a name="input_csi_driver_request_cpu"></a> [csi\_driver\_request\_cpu](#input\_csi\_driver\_request\_cpu) | CPU request for the CSI driver container | `string` | `"25m"` | no |

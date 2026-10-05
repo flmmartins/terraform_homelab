@@ -45,15 +45,12 @@ variable "retention_days" {
 }
 
 variable "versioning" {
-  description = <<-EOT
-    Bucket versioning: Off, Enabled or Suspended. If null, the field is not set and the operator default applies which is usually disabled.
-    Example: versioning = "Enabled"
-  EOT
+  description = "Bucket versioning: Off, Enabled or Suspended"
   type        = string
-  default     = null
+  default     = "Off"
 
   validation {
-    condition     = var.versioning == null || contains(["Off", "Enabled", "Suspended"], var.versioning)
+    condition     = contains(["Off", "Enabled", "Suspended"], var.versioning)
     error_message = "versioning must be one of Off, Enabled or Suspended."
   }
 }

@@ -32,7 +32,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Kubelet Cert Approver Chart Version | `string` | `"v0.12.1"` | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Kubelet Cert Approver Chart Version. Versions can be found in https://github.com/alex1989hu/kubelet-serving-cert-approver/releases | `string` | `"v0.12.1"` | no |
 
 ## Outputs
 

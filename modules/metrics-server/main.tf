@@ -1,5 +1,5 @@
 variable "chart_version" {
-  description = "Metric Server Chart Version"
+  description = "Metric Server Chart Version. Versions can be found in https://github.com/kubernetes-sigs/metrics-server/blob/master/charts/metrics-server/CHANGELOG.md"
   default     = "3.14.0"
 }
 

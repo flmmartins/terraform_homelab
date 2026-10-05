@@ -33,7 +33,7 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_cli_version"></a> [aws\_cli\_version](#input\_aws\_cli\_version) | AWS CLI to use to backup to storage | `string` | `"2.37.8"` | no |
+| <a name="input_aws_cli_version"></a> [aws\_cli\_version](#input\_aws\_cli\_version) | AWS CLI to use to backup to storage. Versions can be found in https://hub.docker.com/r/amazon/aws-cli/tags | `string` | `"2.37.8"` | no |
 | <a name="input_backup"></a> [backup](#input\_backup) | Backup to S3 specifications<br/>Example:<br/>backup = {<br/>  s3\_endpoint  = "http://...:8333"<br/>  s3\_bucket    = "A BUCKET - If created with seaweed there's  no need to define"<br/>  schedule     = "0 0 0 * * *". This expression expects 6 digits. | <pre>object({<br/>    s3_endpoint = string<br/>    s3_bucket   = optional(string)<br/>    schedule    = optional(string, "0 21 * * *")<br/>  })</pre> | n/a | yes |
 | <a name="input_backup_max_age_seconds"></a> [backup\_max\_age\_seconds](#input\_backup\_max\_age\_seconds) | Alert when the last successful backup is older than this many seconds. Set it to your schedule interval plus some slack (default 25h for a daily backup). | `number` | `90000` | no |
 | <a name="input_cpu_limit"></a> [cpu\_limit](#input\_cpu\_limit) | CPU limit for the upload container (e.g. '200m', '1'). | `string` | `"200m"` | no |
@@ -46,7 +46,7 @@ No requirements.
 | <a name="input_vault_ca_secret_key"></a> [vault\_ca\_secret\_key](#input\_vault\_ca\_secret\_key) | Key inside the Secret that contains the PEM encoded CA certificate | `string` | `"ca.crt"` | no |
 | <a name="input_vault_ca_secret_name"></a> [vault\_ca\_secret\_name](#input\_vault\_ca\_secret\_name) | Name of the Kubernetes Secret (in vault\_namespace) that holds the Vault CA certificate.<br/>It is mounted as a file and exposed to the Vault CLI through VAULT\_CACERT. | `string` | n/a | yes |
 | <a name="input_vault_namespace"></a> [vault\_namespace](#input\_vault\_namespace) | Name of the vault namespace where backup cronjob will be created | `string` | `"vault"` | no |
-| <a name="input_vault_version"></a> [vault\_version](#input\_vault\_version) | Name of the vault namespace where backup cronjob will be created | `string` | `"2.0.4"` | no |
+| <a name="input_vault_version"></a> [vault\_version](#input\_vault\_version) | Image that will run vault. Versions should sync with https://github.com/hashicorp/vault-helm/releases | `string` | `"2.0.4"` | no |
 
 ## Outputs
 

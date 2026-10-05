@@ -18,10 +18,11 @@ resource "kubernetes_config_map_v1" "vault_internal_ca" {
 
 # This tells the gateway to use TLS when connecting to the backend
 resource "kubernetes_manifest" "backendtlspolicy_vault" {
-  count = var.gateway != null ? 1 : 0
+  count      = var.gateway != null ? 1 : 0
+  depends_on = [helm_release.this]
 
   manifest = {
-    apiVersion = "gateway.networking.k8s.io/v1alpha3"
+    apiVersion = "gateway.networking.k8s.io/v1"
     kind       = "BackendTLSPolicy"
     metadata = {
       name      = local.name
@@ -46,39 +47,6 @@ resource "kubernetes_manifest" "backendtlspolicy_vault" {
         ]
         hostname = var.url
       }
-    }
-  }
-}
-
-resource "kubernetes_manifest" "httproute_vault" {
-  count = var.gateway != null ? 1 : 0
-
-  manifest = {
-    apiVersion = "gateway.networking.k8s.io/v1"
-    kind       = "HTTPRoute"
-    metadata = {
-      name      = local.name
-      namespace = kubernetes_namespace_v1.this.metadata[0].name
-      labels    = merge(local.labels, { component = "httproute" })
-    }
-    spec = {
-      parentRefs = [
-        {
-          name      = var.gateway.name
-          namespace = var.gateway.namespace
-        }
-      ]
-      hostnames = [var.url]
-      rules = [
-        {
-          backendRefs = [
-            {
-              name = local.vault_service
-              port = 8200
-            }
-          ]
-        }
-      ]
     }
   }
 }

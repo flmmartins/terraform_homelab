@@ -1,7 +1,7 @@
 variable "chart_version" {
   type        = string
-  description = "Prometheus Stack Chart Version"
-  default     = "84.5.0"
+  description = "Prometheus Stack Chart Version. Versions can be found in https://github.com/prometheus-community/helm-charts/releases"
+  default     = "91.9.0"
 }
 
 variable "grafana_url" {

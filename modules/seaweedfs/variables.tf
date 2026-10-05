@@ -1,13 +1,13 @@
 variable "operator_chart_version" {
   type        = string
-  description = "Seaweedfs Chart Operator Version"
-  default     = "0.1.37"
+  description = "Seaweedfs Chart Operator Version. Versions can be found in https://github.com/seaweedfs/seaweedfs-operator/releases"
+  default     = "0.1.43"
 }
 
 variable "application_image_version" {
   type        = string
-  description = "Seaweedfs Docker Image Version"
-  default     = "4.38"
+  description = "Seaweedfs Docker Image Version. To obtain latest get AppVersion from:  helm search repo seaweedfs/seaweedfs --versions"
+  default     = "4.48"
 }
 
 variable "s3api_port" {

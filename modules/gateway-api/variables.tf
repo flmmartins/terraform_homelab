@@ -14,12 +14,12 @@ variable "enable_metrics" {
 # Istio Gateway
 # -----------------------------------------------------------------------------
 variable "istio_chart_version" {
-  description = "Istio Chart Version"
+  description = "Istio Chart Version. Versions can be found in https://github.com/istio/istio/releases"
   default     = "1.31.1"
 }
 
 variable "gateway_crds_version" {
-  description = "Gateway API CRDs Version"
+  description = "Gateway API CRDs Version. Versions can be found in https://github.com/kubernetes-sigs/gateway-api/releases"
   default     = "v1.6.2"
 }
 
@@ -95,7 +95,7 @@ variable "gateway_resources_limits_memory" {
 # -----------------------------------------------------------------------------
 
 variable "metallb_chart_version" {
-  description = "Metal LB Chart Version"
+  description = "Metal LB Chart Version. Versions can be found in https://github.com/metallb/metallb/releases"
   default     = "0.16.1"
 }
 

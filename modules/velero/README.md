@@ -42,10 +42,10 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_plugin_version"></a> [aws\_plugin\_version](#input\_aws\_plugin\_version) | AWS Plugin for Velero Version. It has to be compatible with velero. Check: https://github.com/vmware-tanzu/velero-plugin-for-aws?tab=readme-ov-file#compatibility | `string` | `"v1.14.2"` | no |
+| <a name="input_aws_plugin_version"></a> [aws\_plugin\_version](#input\_aws\_plugin\_version) | AWS Plugin for Velero Version. It has to be compatible with velero. Check: https://github.com/vmware-tanzu/velero-plugin-for-aws?tab=readme-ov-file#compatibility | `string` | `"v1.14.4"` | no |
 | <a name="input_backup_schedule"></a> [backup\_schedule](#input\_backup\_schedule) | When to run velero | `any` | n/a | yes |
 | <a name="input_backup_storage_location"></a> [backup\_storage\_location](#input\_backup\_storage\_location) | Use default TTL of 30d | <pre>object({<br/>    name        = optional(string, "seaweedfs")<br/>    provider    = optional(string, "aws")<br/>    bucket      = optional(string, "velero")<br/>    default     = optional(bool, true)<br/>    access_mode = optional(string, "ReadWrite")<br/>    config = object({<br/>      region           = optional(string, "seaweedfs")<br/>      s3ForcePathStyle = optional(string, "true")<br/>      s3Url            = string<br/>    })<br/>  })</pre> | n/a | yes |
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Prometheus Stack Chart Version | `string` | `"12.1.0"` | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Prometheus Stack Chart Version. Versions can be found in https://github.com/vmware-tanzu/helm-charts/releases | `string` | `"12.2.0"` | no |
 | <a name="input_create_backup_from_seaweedfs"></a> [create\_backup\_from\_seaweedfs](#input\_create\_backup\_from\_seaweedfs) | Name of seaweedfs cluster and namespace. If provided, bucket and credentials will be created | <pre>object({<br/>    cluster_name = string<br/>    namespace    = string<br/>  })</pre> | `null` | no |
 | <a name="input_enable_metrics"></a> [enable\_metrics](#input\_enable\_metrics) | Whether to enable Prometheus metrics and ServiceMonitor for Velero | `bool` | `false` | no |
 | <a name="input_limits_cpu"></a> [limits\_cpu](#input\_limits\_cpu) | CPU limit for the pod (e.g. '250m', '1'). | `string` | `"250m"` | no |

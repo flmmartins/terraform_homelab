@@ -1,6 +1,6 @@
 variable "immich_chart_version" {
-  description = "Photos Processing App Version"
-  default     = "0.12.0"
+  description = "Photos Processing App Version. Versions can be found in https://github.com/immich-app/immich-charts/releases"
+  default     = "0.13.2"
 }
 
 variable "immich_album_creator_version" {

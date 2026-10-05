@@ -5,9 +5,9 @@ variable "calibre_enabled" {
 }
 
 variable "calibre_image_tag" {
-  description = "Calibre-Web-Automated image tag. Check https://github.com/crocodilestick/Calibre-Web-Automated/releases for latest"
+  description = "Calibre-Web-Automated image tag. Versions can be found in https://github.com/crocodilestick/Calibre-Web-Automated/releases"
   type        = string
-  default     = "v4.0.6"
+  default     = "v4.0.8"
 }
 
 variable "calibre_vault_password" {

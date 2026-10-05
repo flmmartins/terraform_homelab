@@ -63,6 +63,9 @@ resource "helm_release" "metallb" {
       prometheusRule:
         enabled: ${var.enable_metrics}
     %{~endif~}
+    # FRR is for BGP which is not used
+    frrk8s:
+      enabled: false
     EOF
   ]
 }

@@ -36,7 +36,7 @@ No modules.
 | <a name="input_retention_days"></a> [retention\_days](#input\_retention\_days) | Delete objects after this many days (SeaweedFS volume TTL).<br/>If null, objects are kept forever. Max 255 (SeaweedFS stores TTL count in one byte).<br/>Example: retention\_days = 30 | `number` | `null` | no |
 | <a name="input_seaweedfs"></a> [seaweedfs](#input\_seaweedfs) | Name of seaweedfs cluster and namespace | <pre>object({<br/>    cluster_name = string<br/>    namespace    = string<br/>  })</pre> | n/a | yes |
 | <a name="input_secret_key_field"></a> [secret\_key\_field](#input\_secret\_key\_field) | The secret field that should contain the secret key | `string` | `"secretKey"` | no |
-| <a name="input_versioning"></a> [versioning](#input\_versioning) | Bucket versioning: Off, Enabled or Suspended. If null, the field is not set and the operator default applies which is usually disabled.<br/>Example: versioning = "Enabled" | `string` | `null` | no |
+| <a name="input_versioning"></a> [versioning](#input\_versioning) | Bucket versioning: Off, Enabled or Suspended | `string` | `"Off"` | no |
 
 ## Outputs
 

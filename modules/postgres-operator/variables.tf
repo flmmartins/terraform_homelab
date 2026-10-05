@@ -1,6 +1,6 @@
 variable "chart_version" {
-  description = "The version of the CloudNative PG chart to deploy. This should be a valid version string from the CNPG chart repository."
-  default     = "v0.29.0"
+  description = "The version of the CloudNative PG chart to deploy. Versions can be found in https://github.com/cloudnative-pg/charts/releases"
+  default     = "v0.29.1"
 }
 
 variable "security_context" {

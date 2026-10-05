@@ -1,7 +1,7 @@
 variable "chart_version" {
-  description = "The version of the CloudNative PG chart to deploy. This should be a valid version string from the CNPG chart repository."
+  description = "The version of the CloudNative PG chart to deploy. Versions can be found in https://github.com/cloudnative-pg/charts/releases"
   type        = string
-  default     = "0.8.0"
+  default     = "0.9.0"
 }
 
 variable "postgres_version" {

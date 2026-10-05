@@ -64,7 +64,7 @@ No modules.
 | <a name="input_admin_memory_request"></a> [admin\_memory\_request](#input\_admin\_memory\_request) | Memory request for SeaweedFS admin UI pods | `string` | `"50Mi"` | no |
 | <a name="input_admin_ui_port"></a> [admin\_ui\_port](#input\_admin\_ui\_port) | S3 api port | `number` | `23646` | no |
 | <a name="input_admin_ui_url"></a> [admin\_ui\_url](#input\_admin\_ui\_url) | Admin URL | `string` | n/a | yes |
-| <a name="input_application_image_version"></a> [application\_image\_version](#input\_application\_image\_version) | Seaweedfs Docker Image Version | `string` | `"4.38"` | no |
+| <a name="input_application_image_version"></a> [application\_image\_version](#input\_application\_image\_version) | Seaweedfs Docker Image Version. To obtain latest get AppVersion from:  helm search repo seaweedfs/seaweedfs --versions | `string` | `"4.48"` | no |
 | <a name="input_certificate_issuer"></a> [certificate\_issuer](#input\_certificate\_issuer) | Cert Manager ClusterIssuer used to issue certificates to seadweed. If null, self signed certs will be generated | `string` | `null` | no |
 | <a name="input_enable_metrics"></a> [enable\_metrics](#input\_enable\_metrics) | Whether to enable Prometheus metrics and monitors for operator and cluster | `bool` | `false` | no |
 | <a name="input_filer_cpu_limit"></a> [filer\_cpu\_limit](#input\_filer\_cpu\_limit) | CPU limit for SeaweedFS filer pods | `string` | `"250m"` | no |
@@ -77,7 +77,7 @@ No modules.
 | <a name="input_master_cpu_request"></a> [master\_cpu\_request](#input\_master\_cpu\_request) | CPU request for SeaweedFS master pods | `string` | `"50m"` | no |
 | <a name="input_master_memory_limit"></a> [master\_memory\_limit](#input\_master\_memory\_limit) | Memory limit for SeaweedFS master pods | `string` | `"128Mi"` | no |
 | <a name="input_master_memory_request"></a> [master\_memory\_request](#input\_master\_memory\_request) | Memory request for SeaweedFS master pods | `string` | `"64Mi"` | no |
-| <a name="input_operator_chart_version"></a> [operator\_chart\_version](#input\_operator\_chart\_version) | Seaweedfs Chart Operator Version | `string` | `"0.1.37"` | no |
+| <a name="input_operator_chart_version"></a> [operator\_chart\_version](#input\_operator\_chart\_version) | Seaweedfs Chart Operator Version. Versions can be found in https://github.com/seaweedfs/seaweedfs-operator/releases | `string` | `"0.1.43"` | no |
 | <a name="input_operator_cpu_limit"></a> [operator\_cpu\_limit](#input\_operator\_cpu\_limit) | CPU limit for the SeaweedFS operator controller manager | `string` | `"200m"` | no |
 | <a name="input_operator_cpu_request"></a> [operator\_cpu\_request](#input\_operator\_cpu\_request) | CPU request for the SeaweedFS operator controller manager | `string` | `"100m"` | no |
 | <a name="input_operator_memory_limit"></a> [operator\_memory\_limit](#input\_operator\_memory\_limit) | Memory limit for the SeaweedFS operator controller manager | `string` | `"128Mi"` | no |

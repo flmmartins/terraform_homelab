@@ -23,7 +23,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Metric Server Chart Version | `string` | `"3.14.0"` | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Metric Server Chart Version. Versions can be found in https://github.com/kubernetes-sigs/metrics-server/blob/master/charts/metrics-server/CHANGELOG.md | `string` | `"3.14.0"` | no |
 
 ## Outputs
 

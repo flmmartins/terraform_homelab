@@ -1,12 +1,12 @@
 variable "chart_version" {
   type        = string
-  description = "Prometheus Stack Chart Version"
-  default     = "12.1.0"
+  description = "Prometheus Stack Chart Version. Versions can be found in https://github.com/vmware-tanzu/helm-charts/releases"
+  default     = "12.2.0"
 }
 
 variable "aws_plugin_version" {
   description = "AWS Plugin for Velero Version. It has to be compatible with velero. Check: https://github.com/vmware-tanzu/velero-plugin-for-aws?tab=readme-ov-file#compatibility"
-  default     = "v1.14.2"
+  default     = "v1.14.4"
 }
 
 variable "backup_schedule" {

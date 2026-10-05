@@ -1,5 +1,5 @@
 variable "chart_version" {
-  description = "Cert Manager Version"
+  description = "Cert Manager Version. Versions can be found in https://github.com/cert-manager/cert-manager/releases"
   default     = "v1.21.2"
 }
 

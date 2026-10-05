@@ -1,5 +1,5 @@
 variable "chart_version" {
-  description = "Kubelet Cert Approver Chart Version"
+  description = "Kubelet Cert Approver Chart Version. Versions can be found in https://github.com/alex1989hu/kubelet-serving-cert-approver/releases"
   default     = "v0.12.1"
 }
 

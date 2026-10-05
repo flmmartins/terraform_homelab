@@ -1,5 +1,5 @@
 variable "chart_version" {
-  description = "CSI Driver NFS Chart Version"
+  description = "CSI Driver NFS Chart Version. Versions can be found in https://github.com/kubernetes-csi/csi-driver-nfs/tree/master/charts"
   default     = "4.13.4"
 }
 

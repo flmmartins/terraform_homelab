@@ -41,12 +41,12 @@ variable "vault_namespace" {
 }
 
 variable "vault_version" {
-  description = "Name of the vault namespace where backup cronjob will be created"
+  description = "Image that will run vault. Versions should sync with https://github.com/hashicorp/vault-helm/releases"
   default     = "2.0.4"
 }
 
 variable "aws_cli_version" {
-  description = "AWS CLI to use to backup to storage"
+  description = "AWS CLI to use to backup to storage. Versions can be found in https://hub.docker.com/r/amazon/aws-cli/tags"
   default     = "2.37.8"
 }
 

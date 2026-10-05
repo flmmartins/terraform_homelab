@@ -1,10 +1,10 @@
 variable "chart_version" {
-  description = "Hashicorp Vault Chart Version"
+  description = "Hashicorp Vault Chart Version. Versions can be found in https://github.com/hashicorp/vault-helm/releases"
   default     = "0.34.1"
 }
 
 variable "plugin_onepasswordconnect_version" {
-  description = "Version of 1password connect vault plugin"
+  description = "Version of 1password connect vault plugin. Versions can be found in https://github.com/1Password/vault-plugin-secrets-onepassword/releases"
   default     = "1.1.0"
 }
 

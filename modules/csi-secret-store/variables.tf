@@ -1,6 +1,6 @@
 variable "chart_version" {
   type        = string
-  description = "Chart Version"
+  description = "Chart Version. Versions can be found in https://github.com/kubernetes-sigs/secrets-store-csi-driver/releases/"
   default     = "1.6.1"
 }
 
