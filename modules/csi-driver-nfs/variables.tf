@@ -50,7 +50,7 @@ variable "controller_csi_provisioner_requests_memory" {
 variable "controller_csi_provisioner_limits_cpu" {
   description = "CPU limit for the controller csiProvisioner container (e.g. '100m', '1')."
   type        = string
-  default     = "100m"
+  default     = "200m"
 }
 
 variable "controller_csi_provisioner_limits_memory" {
@@ -125,7 +125,7 @@ variable "controller_liveness_probe_requests_memory" {
 variable "controller_liveness_probe_limits_cpu" {
   description = "CPU limit for the controller livenessProbe container (e.g. '50m', '1')."
   type        = string
-  default     = "50m"
+  default     = "100m"
 }
 
 variable "controller_liveness_probe_limits_memory" {
@@ -150,7 +150,7 @@ variable "controller_nfs_requests_memory" {
 variable "controller_nfs_limits_cpu" {
   description = "CPU limit for the controller nfs container (e.g. '100m', '1')."
   type        = string
-  default     = "100m"
+  default     = "200m"
 }
 
 variable "controller_nfs_limits_memory" {

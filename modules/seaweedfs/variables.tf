@@ -235,7 +235,7 @@ variable "s3_memory_limit" {
 variable "admin_cpu_request" {
   description = "CPU request for SeaweedFS admin UI pods"
   type        = string
-  default     = "50m"
+  default     = "100m"
 }
 
 variable "admin_memory_request" {
@@ -247,7 +247,7 @@ variable "admin_memory_request" {
 variable "admin_cpu_limit" {
   description = "CPU limit for SeaweedFS admin UI pods"
   type        = string
-  default     = "100m"
+  default     = "200m"
 }
 
 variable "admin_memory_limit" {
@@ -262,7 +262,7 @@ variable "admin_memory_limit" {
 variable "operator_cpu_request" {
   description = "CPU request for the SeaweedFS operator controller manager"
   type        = string
-  default     = "100m"
+  default     = "200m"
 }
 
 variable "operator_memory_request" {
@@ -274,7 +274,7 @@ variable "operator_memory_request" {
 variable "operator_cpu_limit" {
   description = "CPU limit for the SeaweedFS operator controller manager"
   type        = string
-  default     = "200m"
+  default     = "400m"
 }
 
 variable "operator_memory_limit" {

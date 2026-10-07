@@ -130,7 +130,7 @@ variable "grafana_cpu_request" {
 
 variable "grafana_cpu_limit" {
   type    = string
-  default = "400m"
+  default = "600m"
 }
 
 variable "grafana_memory_request" {

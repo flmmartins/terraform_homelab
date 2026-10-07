@@ -42,7 +42,7 @@ No modules.
 | <a name="input_alertmanager_url"></a> [alertmanager\_url](#input\_alertmanager\_url) | Alertmanager URL | `string` | `null` | no |
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Prometheus Stack Chart Version. Versions can be found in https://github.com/prometheus-community/helm-charts/releases | `string` | `"91.9.0"` | no |
 | <a name="input_gateway"></a> [gateway](#input\_gateway) | Gateway to use for the app | <pre>object({<br/>    name      = string<br/>    namespace = string<br/>  })</pre> | n/a | yes |
-| <a name="input_grafana_cpu_limit"></a> [grafana\_cpu\_limit](#input\_grafana\_cpu\_limit) | n/a | `string` | `"400m"` | no |
+| <a name="input_grafana_cpu_limit"></a> [grafana\_cpu\_limit](#input\_grafana\_cpu\_limit) | n/a | `string` | `"600m"` | no |
 | <a name="input_grafana_cpu_request"></a> [grafana\_cpu\_request](#input\_grafana\_cpu\_request) | ----------------------------------------------------------------------------- Grafana ----------------------------------------------------------------------------- | `string` | `"200m"` | no |
 | <a name="input_grafana_memory_limit"></a> [grafana\_memory\_limit](#input\_grafana\_memory\_limit) | n/a | `string` | `"768Mi"` | no |
 | <a name="input_grafana_memory_request"></a> [grafana\_memory\_request](#input\_grafana\_memory\_request) | n/a | `string` | `"256Mi"` | no |

@@ -1,3 +1,21 @@
+
+## Check backups
+
+
+List:
+`velero backup get`
+
+Check why it failed:
+
+```
+velero backup describe <failed-backup> --details
+velero backup logs <backup-name>
+```
+
+Delete if necessary:
+
+`velero backup delete <backup-name>`
+
 ## Backup manually (retry a failed backup)
 
 ```
