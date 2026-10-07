@@ -37,8 +37,9 @@ resource "kubernetes_persistent_volume_v1" "immich_data" {
         driver        = "nfs.csi.k8s.io"
         volume_handle = "photos"
         volume_attributes = {
-          server = var.photos_nfs_share.server
-          share  = var.photos_nfs_share.path
+          server           = var.photos_nfs_share.server
+          share            = var.photos_nfs_share.path
+          mountPermissions = "0" # This was added bc despite OnRootMismatch immich was changing permissions every restart
         }
       }
     }
@@ -83,8 +84,9 @@ resource "kubernetes_persistent_volume_v1" "immich_config" {
         driver        = "nfs.csi.k8s.io"
         volume_handle = "immich-config"
         volume_attributes = {
-          server = var.photos_nfs_share.server
-          share  = format("%s/immich-config", var.photos_nfs_share.path)
+          server           = var.photos_nfs_share.server
+          share            = format("%s/immich-config", var.photos_nfs_share.path)
+          mountPermissions = "0" # This was added bc despite OnRootMismatch immich was changing permissions every restart
         }
       }
     }

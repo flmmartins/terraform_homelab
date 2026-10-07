@@ -7,6 +7,31 @@ brew install kubectl-cnpg
 kubectl cnpg reload cluster-name
 ```
 
+# Upgrade Postgres
+
+First make sure you have the latest pg operator and pg cluster helm charts.
+
+Afterwards check the available postgres versions in [this link](https://github.com/cloudnative-pg/postgres-containers/pkgs/container/postgresql#cnpg-postgresql-container-images)
+
+Check which version of postgres your apps support:
+* [Immich](https://docs.immich.app/administration/postgres-standalone/)
+
+Scale immich down: 
+`kubectl scale deploy -n immich-photos --all --replicas=0`
+
+Make sure backups is available on seadweedfs
+
+Bump version and apply
+
+Test immich:
+
+`kubectl scale deploy -n immich-photos --all --replicas=1`
+
+
+## How major upgrade works
+
+If you just bump the version it will bring down postgres and upgrade.
+
 # Backup
 
 I tried to configure the backup to use method plugin but somehow the plugin is not installed in the cluster when you declare on helm and backup says: plugin not in the cluster so I reverted back to normal.
@@ -79,9 +104,9 @@ No requirements.
 | <a name="input_certificate_issuer"></a> [certificate\_issuer](#input\_certificate\_issuer) | The Cert Manager issuer to use for PostgreSQL certificates. This should be the name of an existing issuer in your Kubernetes cluster. | `string` | n/a | yes |
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | The version of the CloudNative PG chart to deploy. Versions can be found in https://github.com/cloudnative-pg/charts/releases | `string` | `"0.9.0"` | no |
 | <a name="input_cluster"></a> [cluster](#input\_cluster) | Clusters to be created. If you don't provide a url, the cluster will not have external access and will only be accessible within the Kubernetes cluster | <pre>object({<br/>    name          = string<br/>    storage_class = optional(string)<br/>    url           = optional(string)<br/>    size          = optional(string, "30Gi")<br/>    instances     = optional(number, 2)<br/>  })</pre> | n/a | yes |
-| <a name="input_cluster_resources_limits_cpu"></a> [cluster\_resources\_limits\_cpu](#input\_cluster\_resources\_limits\_cpu) | The CPU limit for the CloudNative PG operator.This defines the maximum CPU resources the operator can use. | `string` | `"500m"` | no |
+| <a name="input_cluster_resources_limits_cpu"></a> [cluster\_resources\_limits\_cpu](#input\_cluster\_resources\_limits\_cpu) | The CPU limit for the CloudNative PG operator.This defines the maximum CPU resources the operator can use. | `string` | `"700m"` | no |
 | <a name="input_cluster_resources_limits_memory"></a> [cluster\_resources\_limits\_memory](#input\_cluster\_resources\_limits\_memory) | The memory limit for the CloudNative PG operator. This defines the maximum memory resources the operator can use. | `string` | `"1Gi"` | no |
-| <a name="input_cluster_resources_requests_cpu"></a> [cluster\_resources\_requests\_cpu](#input\_cluster\_resources\_requests\_cpu) | The CPU request for the CloudNative PG operator. This defines the minimum CPU resources the operator will request. | `string` | `"100m"` | no |
+| <a name="input_cluster_resources_requests_cpu"></a> [cluster\_resources\_requests\_cpu](#input\_cluster\_resources\_requests\_cpu) | The CPU request for the CloudNative PG operator. This defines the minimum CPU resources the operator will request. | `string` | `"200m"` | no |
 | <a name="input_cluster_resources_requests_memory"></a> [cluster\_resources\_requests\_memory](#input\_cluster\_resources\_requests\_memory) | The memory request for the CloudNative PG operator. This defines the minimum memory resources the operator will request | `string` | `"256Mi"` | no |
 | <a name="input_cluster_shared_buffers"></a> [cluster\_shared\_buffers](#input\_cluster\_shared\_buffers) | Shared buffers should be at least 25% of available memory | `string` | `"50MB"` | no |
 | <a name="input_create_backup_from_seaweedfs"></a> [create\_backup\_from\_seaweedfs](#input\_create\_backup\_from\_seaweedfs) | Name of seaweedfs cluster and namespace. If provided, bucket and credentials will be created | <pre>object({<br/>    cluster_name = string<br/>    namespace    = string<br/>  })</pre> | `null` | no |
@@ -89,7 +114,7 @@ No requirements.
 | <a name="input_disabled_alerts"></a> [disabled\_alerts](#input\_disabled\_alerts) | Cluster comes with some alerts by default. This allows you to disable alerts by adding the alert name to the array | `list(string)` | `[]` | no |
 | <a name="input_enable_metrics"></a> [enable\_metrics](#input\_enable\_metrics) | Whether to enable metrics | `bool` | `false` | no |
 | <a name="input_mode"></a> [mode](#input\_mode) | -- Cluster mode of operation. Available modes:<br/>standalone - default mode. Creates new or updates an existing CNPG cluster.<br/>replica - Creates a replica cluster from an existing CNPG cluster.<br/>recovery - Same as standalone but creates a cluster from a backup, object store or via pg\_basebackup. | `string` | `"standalone"` | no |
-| <a name="input_postgres_version"></a> [postgres\_version](#input\_postgres\_version) | The version of postgres database | `string` | `"16"` | no |
+| <a name="input_postgres_version"></a> [postgres\_version](#input\_postgres\_version) | The version of postgres database. Check supported versions in https://github.com/cloudnative-pg/postgres-containers/pkgs/container/postgresql#cnpg-postgresql-container-images. Check README.md for more | `string` | `"18"` | no |
 | <a name="input_roles"></a> [roles](#input\_roles) | Role settings. This will create the role and if create secret in namespace is set as a k8s secret | <pre>list(object({<br/>    name                       = string<br/>    login                      = optional(bool, true)<br/>    create_secret_in_namespace = optional(string)<br/>    superuser                  = optional(bool, false)<br/>    state                      = optional(string, "present")<br/>  }))</pre> | n/a | yes |
 | <a name="input_s3_credentials"></a> [s3\_credentials](#input\_s3\_credentials) | Object containing access\_key\_id and secret\_access\_key for s3 | <pre>object({<br/>    access_key_id     = string<br/>    secret_access_key = string<br/>  })</pre> | `null` | no |
 

@@ -5,9 +5,9 @@ variable "chart_version" {
 }
 
 variable "postgres_version" {
-  description = "The version of postgres database"
+  description = "The version of postgres database. Check supported versions in https://github.com/cloudnative-pg/postgres-containers/pkgs/container/postgresql#cnpg-postgresql-container-images. Check README.md for more"
   type        = string
-  default     = "16"
+  default     = "18"
 }
 
 variable "cluster" {
@@ -115,7 +115,7 @@ variable "disabled_alerts" {
 variable "cluster_resources_requests_cpu" {
   description = "The CPU request for the CloudNative PG operator. This defines the minimum CPU resources the operator will request."
   type        = string
-  default     = "100m"
+  default     = "200m"
 }
 
 variable "cluster_resources_requests_memory" {
@@ -127,7 +127,7 @@ variable "cluster_resources_requests_memory" {
 variable "cluster_resources_limits_cpu" {
   description = "The CPU limit for the CloudNative PG operator.This defines the maximum CPU resources the operator can use."
   type        = string
-  default     = "500m"
+  default     = "700m"
 }
 
 variable "cluster_resources_limits_memory" {
