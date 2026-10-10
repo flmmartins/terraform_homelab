@@ -13,6 +13,16 @@ variable "backup_schedule" {
   description = "When to run velero"
 }
 
+variable "backup_name" {
+  description = "Name of the velero backup schedule. Default assumes you run daily backups"
+  default     = "daily-backup"
+}
+
+variable "backup_stale_hours" {
+  description = "Number of hours backup should be considered stale and will alert in prometheus (if metrics enabled). Default assumes you run daily backups"
+  default     = 25
+}
+
 variable "enable_metrics" {
   description = "Whether to enable Prometheus metrics and ServiceMonitor for Velero"
   type        = bool

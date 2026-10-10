@@ -18,6 +18,7 @@ locals {
     part-of = "backup"
   }
   velero_service_account_name = local.name
+  full_backup_name            = "${local.name}-${var.backup_name}"
 }
 
 resource "terraform_data" "validate_credentials" {
@@ -97,7 +98,7 @@ resource "helm_release" "this" {
   values = [
     <<-EOF
     schedules:
-      daily-backup:
+      ${var.backup_name}:
         schedule: ${var.backup_schedule}
         template:
           includedNamespaces:
@@ -130,12 +131,12 @@ resource "helm_release" "this" {
             summary: "Velero backup {{ $labels.schedule }} failed"
             description: "The most recent run of backup schedule {{ $labels.schedule }} failed. Check `velero backup logs` for details."
         - alert: VeleroBackupStale
-          expr: (time() - velero_backup_last_successful_timestamp) / 3600 > 25
+          expr: "(time() - velero_backup_last_successful_timestamp{schedule=\"${local.full_backup_name}\"}) / 3600 > ${var.backup_stale_hours}"
           for: 5m
           labels:
             severity: warning
           annotations:
-            summary: "Velero backup {{ $labels.schedule }} hasn't succeeded in over 25 hours"
+            summary: "Velero backup {{ $labels.schedule }} hasn't succeeded in over ${var.backup_stale_hours} hours"
             description: "Given your daily schedule ({{ $labels.schedule }}), this suggests backups have silently stopped running, not just failed once."
         - alert: VeleroBackupLocationUnavailable
           expr: velero_backup_location_status_gauge == 0
